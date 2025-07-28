@@ -28,7 +28,7 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
         
-          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/" element={<IndexPage />} />
           <Route index path="/home" element={<IndexPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
