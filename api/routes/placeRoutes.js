@@ -1,0 +1,17 @@
+import { Router } from 'express';
+import { createPlace, updatePlace, getUserPlaces, getPlace, deletePlace, getAllPlaces } from '../controllers/placeController.js';
+
+import { verifyToken } from '../middlewares/authMiddleware.js';
+
+const router = Router();
+
+router.post('/my-accomodations', verifyToken, createPlace);
+router.put('/my-accomodations', verifyToken, updatePlace);
+router.get('/my-accomodations', verifyToken, getUserPlaces);
+router.get('/my-accomodations/:id', getPlace);
+router.delete('/my-accomodations/:id', deletePlace);
+
+router.get('/places', getAllPlaces);
+router.get('/all-places/:id', getPlace);  // Optional: You may remove if duplicate of above
+
+export default router;

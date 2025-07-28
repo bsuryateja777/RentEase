@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+textarea {
+  @apply w-full border my-1 py-2 px-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-400;
+}
+
+
+input.age {
+  @apply w-[60%]
+}
+
+select.gender {
+  @apply w-[40%] border rounded-2xl my-1 px-4;
+}
+
+textarea {
+  height: 120px;
+}
+
+
+button {
+  @apply hover:bg-gray-300 mt-2 flex justify-center items-center py-1;
+}
+
+button.primary {
+  @apply bg-primary hover:bg-primaryHover p-2 w-full text-white rounded-2xl;
+}
+
+button.delete {
+  @apply bg-gray-200 p-2 w-full border border-black text-black rounded-2xl;
+}
+
+
+.undo-button {
+  border: none;
+  background: none;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font: inherit;
+  line-height: 1;
+}
+
+
+.toast-message-inline {
+  display: inline-flex;
+  align-items: center;
+}
+
+
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+.tracking-tight {
+  letter-spacing: -0.02em;
+}
+
+.tracking-loose {
+  letter-spacing: 0.1em;
+}
+
+
+.leading-snug {
+  line-height: 1.375;
+}
+
+.no-clear::-webkit-search-cancel-button {
+  display: none;
+  -webkit-appearance: none;
+}
+
