@@ -15,12 +15,14 @@ export default function AccountCenter() {
 
 
   async function logout() {
-    await axios.post('/logout');
+    axios.post('https://rentease-backend-5p7h.onrender.com/logout', {}, {
+      withCredentials: true,
+    }); 
     setUser(null);
     navigate('/home');
   }
 
-  
+
 
 
   if (!ready) return <div>Loading...</div>;
@@ -34,13 +36,13 @@ export default function AccountCenter() {
 
           <button onClick={() => setShowPersDiv(true)}> Personal Information</button>
           {showPersDiv && (
-            <PersonalInformationPopup setShowPersDiv={setShowPersDiv}/>
+            <PersonalInformationPopup setShowPersDiv={setShowPersDiv} />
           )}
 
 
           <button onClick={() => setShowPassDiv(true)}> Change Password</button>
           {showPassDiv && (
-          <ChangePasswordPopup setShowPassDiv={setShowPassDiv}/>
+            <ChangePasswordPopup setShowPassDiv={setShowPassDiv} />
           )}
 
           <button><Link to={'/account/my-accomodations/new'}>Accomodate a Place</Link></button>
