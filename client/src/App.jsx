@@ -18,7 +18,7 @@ import IndexSkeleton from './Skeletons/IndexSkeleton.jsx';
 import PlaceSkeleton from './Skeletons/PlaceSkeleton.jsx';
 
 
-axios.defaults.baseURL = 'https://rentease-backend-5p7h.onrender.com';
+axios.defaults.baseURL = 'http://localhost:4000';
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
         
-          <Route path="/" element={<IndexPage />} />
+          <Route path="/" element={<Navigate to="/home" />} />
           <Route index path="/home" element={<IndexPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
