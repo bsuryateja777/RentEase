@@ -18,7 +18,7 @@ import IndexSkeleton from './Skeletons/IndexSkeleton.jsx';
 import PlaceSkeleton from './Skeletons/PlaceSkeleton.jsx';
 
 
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = 'https://rentease-backend-5p7h.onrender.com';
 axios.defaults.withCredentials = true;
 
 function App() {
