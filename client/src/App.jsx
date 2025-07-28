@@ -14,8 +14,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import AccountCenter from './Pages/AccountCenter.jsx';
 import MyGuestsPage from './Pages/MyGuestsPage.jsx';
 import SinglePlacePage from './Pages/SinglePlacePage.jsx'
-import IndexSkeleton from './Skeletons/IndexSkeleton.jsx';
-import PlaceSkeleton from './Skeletons/PlaceSkeleton.jsx';
 
 
 axios.defaults.baseURL = 'https://rentease-backend-5p7h.onrender.com';
