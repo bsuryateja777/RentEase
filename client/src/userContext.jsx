@@ -10,7 +10,7 @@ export function UserContextProvider({ children }) {
 
   useEffect(() => {
     if (!user) {
-      axios.get('https://rentease-backend-5p7h.onrender.com/profile', {
+      axios.get('/profile', {
         withCredentials: true,
       })
         .then(({ data }) => {
