@@ -82,7 +82,7 @@ export default function MyBookingsPage() {
                   {booking.place.photos.length > 0 && (
                     <img
                       className='object-cover h-full w-full rounded-lg'
-                      src={'http://localhost:4000/uploads/user-places/' + booking.place.photos[0]}
+                      src={'https://rentease-backend-5p7h.onrender.com/uploads/user-places/' + booking.place.photos[0]}
                       alt="Place"
                     />
                   )}

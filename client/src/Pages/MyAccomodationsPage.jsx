@@ -35,7 +35,7 @@ export default function MyAccomodationsPage() {
                             <Link to={'/account/my-accomodations/' + place._id} key={index} className="flex gap-4 bg-gray-100 p-4 rounded-lg shadow-md shadow-blue-300 mb-4 cursor-pointer" >
                                 <div className="flex w-[250px] h-[150px] bg-gray-200 grow-0 shrink-0 rounded-lg">
                                     {place.photos.length > 0 && (
-                                        <img className="object-cover h-full w-full rounded-lg" src={'http://localhost:4000/uploads/user-places/' + place.photos[0]} />
+                                        <img className="object-cover h-full w-full rounded-lg" src={'https://rentease-backend-5p7h.onrender.com/uploads/user-places/' + place.photos[0]} />
                                     )}
                                 </div>
 

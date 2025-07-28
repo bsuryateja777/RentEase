@@ -50,7 +50,7 @@ export default function MyGuests() {
 
               <div className=' flex w-[250px] h-[150px] bg-gray-200 grow-0 shrink-0 rounded-lg'>
                 {guest.place?.photos?.length > 0 && (
-                  <img className='object-cover h-full w-full rounded-lg' src={'http://localhost:4000/uploads/user-places/' + guest.place.photos[0]} />
+                  <img className='object-cover h-full w-full rounded-lg' src={'https://rentease-backend-5p7h.onrender.com/uploads/user-places/' + guest.place.photos[0]} />
                 )}
               </div>
 

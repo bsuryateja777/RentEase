@@ -13,7 +13,7 @@ export default function ImageGrid({ images = [] }) {
             {/* Featured Image */}
             <div className="col-span-3 row-span-2 relative overflow-hidden rounded-xl">
                 <div className="w-full h-full overflow-hidden rounded-xl">
-                    <img src={`http://localhost:4000/uploads/user-places/${featuredImage}`} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 hover:brightness-50" />
+                    <img src={`https://rentease-backend-5p7h.onrender.com/uploads/user-places/${featuredImage}`} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 hover:brightness-50" />
                 </div>
             </div>
 
@@ -24,7 +24,7 @@ export default function ImageGrid({ images = [] }) {
                 {sideImages.map((img, idx) => (
                     <div key={idx} className={`relative ${makeFlex ? 'w-[49%] h-[49.5%]' : 'w-full h-full'}`}>
                         <div className="w-full h-full overflow-hidden rounded-xl">
-                            <img src={`http://localhost:4000/uploads/user-places/${img}`} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 hover:brightness-50" />
+                            <img src={`https://rentease-backend-5p7h.onrender.com/uploads/user-places/${img}`} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 hover:brightness-50" />
                         </div>
 
                         {/* Show all photos button */}
