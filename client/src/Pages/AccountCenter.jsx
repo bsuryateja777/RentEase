@@ -15,7 +15,7 @@ export default function AccountCenter() {
 
 
   async function logout() {
-    axios.post('https://rentease-backend-5p7h.onrender.com/logout', {}, {
+    axios.post('/logout', {}, {
       withCredentials: true,
     }); 
     setUser(null);
