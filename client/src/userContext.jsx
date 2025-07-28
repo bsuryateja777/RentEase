@@ -7,10 +7,11 @@ export function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [ready, setReady] = useState(false);
 
+  
 
   useEffect(() => {
     if (!user) {
-      axios.get('/profile', {
+      axios.get('https://rentease-backend-5p7h.onrender.com/profile', {
         withCredentials: true,
       })
         .then(({ data }) => {
@@ -19,10 +20,10 @@ export function UserContextProvider({ children }) {
         })
         .catch((err) => {
           console.error("Profile fetch error:", err.message);
-          setReady(true);
         });
     }
   }, [user]);
+
 
 
 
