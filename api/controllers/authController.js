@@ -52,8 +52,9 @@ export const logout = (req, res) => {
     secure: true,
     sameSite: 'None',
   });
-  res.status(200).json({ message: 'Logged out successfully' });
+  res.status(200).json({ message: 'Logged out successfully', tokenCleared: true });
 };
+
 
 export const profile = async (req, res) => {
   try {

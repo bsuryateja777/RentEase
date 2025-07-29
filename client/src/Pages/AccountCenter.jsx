@@ -15,12 +15,16 @@ export default function AccountCenter() {
 
 
   async function logout() {
-    axios.post('/logout', {}, {
-      withCredentials: true,
-    }); 
-    setUser(null);
-    navigate('/home');
+    try {
+      await axios.post('/logout', {}, { withCredentials: true });
+    } catch (err) {
+      console.error("Logout failed", err);
+    } finally {
+      setUser(null);  // Clear context
+      navigate('/home');  // Redirect
+    }
   }
+
 
 
 
