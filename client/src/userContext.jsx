@@ -8,29 +8,20 @@ export function UserContextProvider({ children }) {
   const [ready, setReady] = useState(false);
 
 
-
   useEffect(() => {
-    
-    if (user === null || ready) return;
-
-    axios.get('/profile', { withCredentials: true })
-      .then(({ data }) => {
-        setUser(data);
-      })
-      .catch((err) => {
-        if (err.response?.status === 401) {
-          setUser(null);
-        } else {
-          console.error("Profile fetch error:", err.message);
-        }
-      })
-      .finally(() => {
-        setReady(true);
-      });
-  }, [user, ready]);
-
-
-
+    if (!ready && user === null) {
+      axios.get('/profile')
+        .then(({ data }) => setUser(data))
+        .catch(err => {
+          if (err.response?.status === 401) {
+            setUser(null);
+          } else {
+            console.error("Profile fetch error:", err.message);
+          }
+        })
+        .finally(() => setReady(true));
+    }
+  }, [ready, user]);
 
 
 
