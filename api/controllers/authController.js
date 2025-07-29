@@ -2,7 +2,7 @@ import Users from '../models/Users.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const jwtSecret = process.env.JWT_SECRET || 'default_secret';
+const jwtSecret = 'default_secret';
 
 export const register = async (req, res) => {
   const { name, email, age, gender, password } = req.body;
@@ -36,7 +36,7 @@ export const login = async (req, res) => {
   const token = jwt.sign(
     { id: user._id, email: user.email },
     jwtSecret,
-    { expiresIn: '1d' }
+    { expiresIn: '24h' }
   );
 
   res.cookie('token', token, {
@@ -59,14 +59,12 @@ export const logout = (req, res) => {
 export const profile = async (req, res) => {
   const { token } = req.cookies;
   if (!token) {
-    return res.status(401).json({ message: "Unauthorized: Token missing" });
+    return res.status(401).json({ message: 'No token' });
   }
-  try {
-    const userData = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(userData.id);
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) return res.status(401).json({ message: 'Invalid token' });
+    const user = await Users.findById(userData.id);
     res.json(user);
-  } catch (err) {
-    res.status(401).json({ message: "Unauthorized: Invalid token" });
-  }
+  });
 };
 

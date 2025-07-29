@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const jwtSecret = process.env.JWT_SECRET || 'default_secret';
+const jwtSecret = 'default_secret';
 
 export function verifyToken(req, res, next) {
   const token = req.cookies.token;
