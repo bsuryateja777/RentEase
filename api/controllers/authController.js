@@ -2,7 +2,7 @@ import Users from '../models/Users.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const jwtSecret = 'default_secret';
+const jwtSecret =process.env.JWT_SECRET || 'default_secret';
 
 export const register = async (req, res) => {
   const { name, email, age, gender, password } = req.body;
