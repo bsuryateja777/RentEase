@@ -58,20 +58,15 @@ export const logout = (req, res) => {
 
 export const profile = async (req, res) => {
   const { token } = req.cookies;
-
   if (!token) {
-    console.log('No token found in cookies');
-    return res.status(401).json({ message: 'No token' });
+    return res.status(401).json({ message: "Unauthorized: Token missing" });
   }
-
-  jwt.verify(token, jwtSecret, {}, (err, userData) => {
-    if (err) {
-      console.log('Token verification failed:', err.message);
-      return res.status(403).json({ message: 'Invalid token' });
-    }
-
-    console.log('Token verified:', userData);
-    res.json(userData);
-  });
+  try {
+    const userData = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(userData.id);
+    res.json(user);
+  } catch (err) {
+    res.status(401).json({ message: "Unauthorized: Invalid token" });
+  }
 };
 

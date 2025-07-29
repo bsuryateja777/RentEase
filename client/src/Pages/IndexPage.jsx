@@ -18,19 +18,18 @@ export default function IndexPage() {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get('/places', {
-        params: {
-          city: initialCity,
-          search: searchQuery || '',
-        },
-      })
+    axios.get('/places', { params: { city: initialCity, search: searchQuery || '' } })
       .then((res) => {
-        setPlaces(res.data);
+        if (Array.isArray(res.data)) {
+          setPlaces(res.data);
+        } else {
+          console.error('Unexpected /places response:', res.data);
+          setPlaces([]);
+        }
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Failed to load places:', err);
+        console.error('Failed to load places:', err.response?.data || err.message);
         setLoading(false);
       });
   }, [location.search]);
@@ -50,10 +49,10 @@ export default function IndexPage() {
         <div className='mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 bg-gray-100 rounded-t-2xl pt-4 pb-10'>
           {places.length == 0 && (
             <div className=' flex items-center justify-center text-red-700 min-h-[70px] min-w-[1200px]'>
-              <p className='text-md'>There are no places for your {searchQuery? 'search term' :'selected city'} <strong className='text-2xl font-playfair tracking-loose text-red-600'>[{searchQuery || initialCity}]</strong></p>
+              <p className='text-md'>There are no places for your {searchQuery ? 'search term' : 'selected city'} <strong className='text-2xl font-playfair tracking-loose text-red-600'>[{searchQuery || initialCity}]</strong></p>
             </div>
           )}
-          {places.length > 0 &&
+          {Array.isArray(places) && places.length > 0 &&
             places.map((place, index) => (
               <Link to={`/home/${place._id}`} state={place} key={index} className='m-4'>
                 <div className='relative group mb-2 w-[275px] h-[175px] rounded-2xl overflow-hidden bg-gray-300'>
