@@ -16,7 +16,7 @@ import MyGuestsPage from './Pages/MyGuestsPage.jsx';
 import SinglePlacePage from './Pages/SinglePlacePage.jsx'
 
 
-axios.defaults.baseURL = 'https://rentease-backend-5p7h.onrender.com';
+axios.defaults.baseURL = 'https://rentease-frontend.onrender.com';
 axios.defaults.withCredentials = true;
 
 function App() {
