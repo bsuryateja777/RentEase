@@ -10,7 +10,7 @@ export function UserContextProvider({ children }) {
 
   useEffect(() => {
     if (!ready && user === null) {
-      axios.get('/profile')
+      axios.get('https://rentease-backend-5p7h.onrender.com/profile', { withCredentials: true})
         .then(({ data }) => setUser(data))
         .catch(err => {
           if (err.response?.status === 401) {
