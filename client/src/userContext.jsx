@@ -5,12 +5,12 @@ export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [ready, setReady] = useState(false);
+  // const [ready, setReady] = useState(false);
 
 
   useEffect(() => {
-    if (!ready && user === null) {
-      axios.get('https://rentease-backend-5p7h.onrender.com/profile', { withCredentials: true})
+    if (user === null) {
+      axios.get('/profile', { withCredentials: true})
         .then(({ data }) => setUser(data))
         .catch(err => {
           if (err.response?.status === 401) {
@@ -19,14 +19,14 @@ export function UserContextProvider({ children }) {
             console.error("Profile fetch error:", err.message);
           }
         })
-        .finally(() => setReady(true));
+        // .finally(() => setReady(true));
     }
-  }, [ready, user]);
+  }, [user]);
 
 
 
   return (
-    <UserContext.Provider value={{ user, setUser, ready }}>
+    <UserContext.Provider value={{ user, setUser}}>
       {children}
     </UserContext.Provider>
   );

@@ -7,7 +7,7 @@ import ChangePasswordPopup from "../Components/ChangePasswordPopup";
 
 export default function AccountCenter() {
   const navigate = useNavigate();
-  const { ready, user, setUser } = useContext(UserContext);
+  const {user, setUser } = useContext(UserContext);
 
   const [showPersDiv, setShowPersDiv] = useState(false)
   const [showPassDiv, setShowPassDiv] = useState(false)
@@ -29,7 +29,7 @@ export default function AccountCenter() {
 
 
 
-  if (!ready) return <div>Loading...</div>;
+  // if (!ready) return <div>Loading...</div>;
   if (!user) return <div>Not logged in</div>;
 
   return (

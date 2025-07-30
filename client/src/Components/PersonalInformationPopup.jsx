@@ -5,7 +5,7 @@ import { UserContext } from '../userContext';
 
 export default function PersonalInformationPopup({ setShowPersDiv }) {
 
-  const { ready, user, setUser } = useContext(UserContext);
+  const {user, setUser } = useContext(UserContext);
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -16,7 +16,7 @@ export default function PersonalInformationPopup({ setShowPersDiv }) {
 
     useEffect(() => {
 
-        if (!ready || !user) return;
+        if (!user) return;
 
         axios.get('/account-center/personal-details/' + user._id)
             .then(res => {
@@ -31,7 +31,7 @@ export default function PersonalInformationPopup({ setShowPersDiv }) {
                 toast.error("Could Not load user datils");
             });
 
-    }, [ready, user])
+    }, [user])
 
     async function changePersonalDetails(e) {
         e.preventDefault();
