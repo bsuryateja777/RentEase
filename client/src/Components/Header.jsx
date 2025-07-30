@@ -145,20 +145,19 @@ export default function Header() {
 
     return (
         <header className="p-3 flex items-center justify-between relative bg-white shadow-sm">
-            {/* Logo only */}
+            {/* Logo */}
             <div className="flex-1 flex items-center">
                 <Link to="/home" className="inline-flex items-center">
                     <RentEaseLogo size="h-9 w-9 sm:h-10 sm:w-10" />
                 </Link>
             </div>
 
-            {/* Search Icon/Input */}
-            <div className="flex-1 flex justify-center">
-                {/* Desktop: Icon, expand to small input */}
-                <div className="hidden sm:flex items-center justify-center relative">
+            {/* Center Search (hidden on mobile) */}
+            <div className="flex-1 justify-center hidden sm:flex">
+                <div className="flex items-center justify-center relative">
                     {!isSearchOpen ? (
                         <button
-                            className="bg-primary text-white p-2 rounded-full hover:bg-primary/90 transition"
+                            className="bg-primary text-white p-2 rounded-full"
                             onClick={() => setIsSearchOpen(true)}
                             aria-label="Open search"
                         >
@@ -192,22 +191,45 @@ export default function Header() {
                         </div>
                     )}
                 </div>
-                {/* Mobile: Only icon, expands to input on click */}
-                <div className="flex sm:hidden items-center justify-center relative">
-                    {!isSearchOpen ? (
-                        <button
-                            className="bg-primary text-white p-2 rounded-full hover:bg-primary/90 transition"
-                            onClick={() => setIsSearchOpen(true)}
-                            aria-label="Open search"
-                        >
-                            <SearchIcon size="h-6 w-6" />
-                        </button>
-                    ) : (
-                        <div className="flex items-center bg-primary rounded-full px-2 py-1 w-40 transition-all duration-300">
+            </div>
+
+            {/* Right User Menu */}
+            <div className="flex-1 flex justify-end items-center gap-2">
+                {/* Mobile: Search icon */}
+                <div className="flex sm:hidden">
+                    <button
+                        className="bg-primary text-white p-2 rounded-full"
+                        onClick={() => setIsSearchOpen(true)}
+                        aria-label="Open search"
+                    >
+                        <SearchIcon size="h-6 w-6" />
+                    </button>
+                </div>
+                {/* Account/User icon */}
+                <Link to={user ? '/account-center' : '/login'}>
+                    <div className="flex items-center justify-center py-1 px-1.5 gap-1.5 rounded-full bg-white">
+                        <div className="bg-gray-500 text-white rounded-full border overflow-hidden">
+                            <UserProfile />
+                        </div>
+                        {/* Show name only on larger screens */}
+                        {user && (
+                            <span className="max-w-[75px] overflow-hidden whitespace-nowrap text-ellipsis truncate hidden sm:inline" title={user.name}>
+                                {user.name}
+                            </span>
+                        )}
+                    </div>
+                </Link>
+            </div>
+
+            {/* Mobile: Expanding search overlay */}
+            {isSearchOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-start">
+                    <div className="flex w-full px-4 pt-4">
+                        <div className="flex items-center bg-primary rounded-full px-3 py-2 w-full">
                             <input
                                 type="search"
                                 placeholder="Search..."
-                                className="bg-transparent text-white placeholder-white outline-none w-full text-sm"
+                                className="bg-transparent text-white placeholder-white outline-none w-full text-base"
                                 value={searchQuery}
                                 onChange={e => setSearchQuery(e.target.value)}
                                 onKeyDown={e => e.key === "Enter" && handleSearch()}
@@ -228,34 +250,9 @@ export default function Header() {
                                 <CrossIcon size="h-5 w-5" />
                             </button>
                         </div>
-                    )}
+                    </div>
                 </div>
-            </div>
-
-            {/* Account/User menu */}
-            <div className="flex-1 flex justify-end">
-                <div className="flex items-center border border-gray-300 rounded-full py-0.5 px-0.5 gap-0.5 bg-white">
-                    {user && (
-                        <Link to="/account/my-accomodations">
-                            <div className="px-1.5 py-1 rounded-l-full hover:bg-gray-300">
-                                <Hamberger size="size-6" />
-                            </div>
-                        </Link>
-                    )}
-                    <Link to={user ? '/account-center' : '/login'}>
-                        <div className={`flex items-center justify-center py-1 px-1.5 gap-1.5 ${user ? 'rounded-r-full' : 'rounded-full'} hover:bg-gray-300`}>
-                            <div className="bg-gray-500 text-white rounded-full border overflow-hidden">
-                                <UserProfile />
-                            </div>
-                            {user && (
-                                <div className="max-w-[75px] overflow-hidden whitespace-nowrap text-ellipsis truncate" title={user.name}>
-                                    {user.name}
-                                </div>
-                            )}
-                        </div>
-                    </Link>
-                </div>
-            </div>
+            )}
         </header>
     );
 }
