@@ -33,4 +33,8 @@ app.use(userRoutes);
 app.use(placeRoutes);
 app.use(bookingRoutes);
 
+app.get('/',(res, req) => {
+  res.json('working')
+});
+
 export default app;
