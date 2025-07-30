@@ -40,6 +40,13 @@ export default function IndexPage() {
     });
   }, []);
 
+  
+  useEffect(() => {
+    axios.get('/').then((res) => {
+      console.log(res);
+    })
+  })
+
   return (
     <div>
       <Cities city={city} setCity={setCity} />

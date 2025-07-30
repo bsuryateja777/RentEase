@@ -4,6 +4,11 @@ import jwt from 'jsonwebtoken';
 
 const jwtSecret =process.env.JWT_SECRET || 'default_secret';
 
+export const testing = (req, res) => {
+  res.json("working")
+  res.send("working")
+}
+
 export const register = async (req, res) => {
   const { name, email, age, gender, password } = req.body;
 
