@@ -65,7 +65,10 @@ export default function MyGuests() {
                   <p>From: {new Date(guest.fromDate).toLocaleDateString()}</p>
                   <p>To: {new Date(guest.toDate).toLocaleDateString()}</p>
                 </div>
+                <div className='flex gap-2 '>
                 <p>Purpose: {guest.purpose || 'N/A'}</p>
+                <p>Price: {guest.price || 'N/A'}</p>
+                </div>
               </div>
 
             </Link>
