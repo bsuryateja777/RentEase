@@ -5,7 +5,8 @@ import jwt from 'jsonwebtoken';
 const jwtSecret =process.env.JWT_SECRET || 'default_secret';
 
 export const testing = (req, res) => {
-  res.send("working")
+  res.json("working json")
+  res.send("working send")
 }
 
 export const register = async (req, res) => {

@@ -43,7 +43,7 @@ export default function IndexPage() {
 
   useEffect(() => {
     axios.get('/').then((res) => {
-      console.log(res);
+      console.log(res.data);
     },[])
   })
 
