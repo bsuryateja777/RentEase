@@ -4,10 +4,6 @@ import jwt from 'jsonwebtoken';
 
 const jwtSecret =process.env.JWT_SECRET || 'default_secret';
 
-export const testing = (req, res) => {
-  res.json("working json")
-  res.send("working send")
-}
 
 export const register = async (req, res) => {
   const { name, email, age, gender, password } = req.body;
@@ -62,12 +58,8 @@ export const logout = (req, res) => {
 
 
 export const profile = async (req, res) => {
-  // req.user is set by authMiddleware.verifyToken
-  try {
+
     const user = await Users.findById(req.user.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
-  } catch (err) {
-    res.status(500).json({ message: 'Server error' });
-  }
 };

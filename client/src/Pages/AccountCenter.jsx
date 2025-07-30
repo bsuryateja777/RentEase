@@ -26,10 +26,6 @@ export default function AccountCenter() {
   }
 
 
-
-
-
-  // if (!ready) return <div>Loading...</div>;
   if (!user) return <div>Not logged in</div>;
 
   return (

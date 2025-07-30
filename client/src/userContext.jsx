@@ -5,7 +5,6 @@ export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
-  // const [ready, setReady] = useState(false);
 
 
   useEffect(() => {
@@ -13,13 +12,8 @@ export function UserContextProvider({ children }) {
       axios.get('/profile', { withCredentials: true})
         .then(({ data }) => setUser(data))
         .catch(err => {
-          if (err.response?.status === 401) {
-            setUser(null);
-          } else {
-            console.error("Profile fetch error:", err.message);
-          }
+          setUser(null)
         })
-        // .finally(() => setReady(true));
     }
   }, []);
 
