@@ -67,7 +67,7 @@ export default function MyGuests() {
                 </div>
                 <div className='flex gap-5 '>
                 <p>Purpose: {guest.purpose || 'N/A'}</p>
-                <p className='text-transparent text-xl w-fit px-2 py-0.5 mt-3 bg-clip-text bg-gradient-to-l from-black via-red-500 to-yellow-900 font-playfair italic'>Price: {guest.price || 'N/A'}</p>
+                <p className='text-transparent text-xl w-fit bg-clip-text bg-gradient-to-l from-black via-red-500 to-yellow-900 font-playfair italic'>Price: {guest.price || 'N/A'}</p>
                 </div>
               </div>
 
