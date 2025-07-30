@@ -60,7 +60,9 @@ export const logout = (req, res) => {
   res.status(200).json({ message: 'Logged out successfully', tokenCleared: true });
 };
 
+
 export const profile = async (req, res) => {
+  // req.user is set by authMiddleware.verifyToken
   try {
     const user = await Users.findById(req.user.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
@@ -69,4 +71,3 @@ export const profile = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
