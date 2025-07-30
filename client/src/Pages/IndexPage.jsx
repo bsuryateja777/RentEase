@@ -41,12 +41,6 @@ export default function IndexPage() {
   }, []);
 
 
-  useEffect(() => {
-    axios.get('/').then((res) => {
-      console.log(res.data);
-    },[])
-  })
-
   return (
     <div>
       <Cities city={city} setCity={setCity} />

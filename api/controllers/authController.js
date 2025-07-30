@@ -58,12 +58,17 @@ export const logout = (req, res) => {
 
 
 export const profile = async (req, res) => {
-  if (!req.user || !req.user.id) {
-    return res.status(200).json(null);  // Send null instead of error
+  try {
+    if (!req.user || !req.user.id) {
+      return res.status(200).json(null);
+    }
+
+    const user = await Users.findById(req.user.id);
+    if (!user) return res.status(200).json(null);
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error in /profile:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
-
-  const user = await Users.findById(req.user.id);
-  if (!user) return res.status(200).json(null);  // Also send null if not found
-
-  res.status(200).json(user);
 };
