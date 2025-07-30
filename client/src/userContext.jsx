@@ -21,7 +21,7 @@ export function UserContextProvider({ children }) {
         })
         // .finally(() => setReady(true));
     }
-  }, [user]);
+  }, []);
 
 
 
