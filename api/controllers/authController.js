@@ -58,8 +58,12 @@ export const logout = (req, res) => {
 
 
 export const profile = async (req, res) => {
+  if (!req.user || !req.user.id) {
+    return res.status(200).json(null);  // Send null instead of error
+  }
 
-    const user = await Users.findById(req.user.id);
-    if (!user) return res.status(404).json({ message: 'User not found' });
-    res.json(user);
+  const user = await Users.findById(req.user.id);
+  if (!user) return res.status(200).json(null);  // Also send null if not found
+
+  res.status(200).json(user);
 };
