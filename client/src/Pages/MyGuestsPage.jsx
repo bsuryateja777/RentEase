@@ -66,7 +66,9 @@ export default function MyGuests() {
                   <p>To: {new Date(guest.toDate).toLocaleDateString()}</p>
                 </div>
                 <div>
-                  <p>Purpose: {guest.purpose || 'N/A'}</p>
+                  {guest.purpose && (
+                    <p>Purpose: {guest.purpose}</p>
+                  )}
                   <p className='text-transparent text-xl w-fit py-0.5 mt-1 bg-clip-text bg-gradient-to-l from-black via-red-500 to-yellow-900 font-playfair italic'>
                     Price : $ {guest.price || 'N/A'}
                   </p>
