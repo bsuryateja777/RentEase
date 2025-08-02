@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { createPlace, updatePlace, getUserPlaces, getPlace, deletePlace, getAllPlaces } from '../controllers/placeController.js';
-import { upload } from '../middlewares/uploadMiddleware.js';
+import { upload } from '../middlewares/placeMiddleware.js';
 
 
 import { verifyToken } from '../middlewares/authMiddleware.js';
