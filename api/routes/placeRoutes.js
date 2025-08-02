@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { createPlace, updatePlace, getUserPlaces, getPlace, deletePlace, getAllPlaces } from '../controllers/placeController.js';
-import { upload } from '../middlewares/placeMiddleware.js';
+import { multerMiddleware } from '../middlewares/placeMiddleware.js';
 
 
 import { verifyToken } from '../middlewares/authMiddleware.js';
@@ -19,6 +19,6 @@ router.get('/places', getAllPlaces);
 router.get('/all-places/:id', getPlace);  // Optional: You may remove if duplicate of above
 
 router.post('/upload-by-link', uploadByLink);
-router.post('/upload', upload.array('photos', 10), uploadPhotos);
+router.post('/upload', multerMiddleware.array('photos', 10), uploadPhotos);
 
 export default router;
