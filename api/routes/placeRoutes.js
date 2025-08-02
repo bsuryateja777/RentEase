@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { createPlace, updatePlace, getUserPlaces, getPlace, deletePlace, getAllPlaces, uploadByLink, uploadPhotos } from '../controllers/placeController.js';
+const multer = require('multer');
+const path = require('path');
 
 import { verifyToken } from '../middlewares/authMiddleware.js';
 
