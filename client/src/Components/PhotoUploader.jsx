@@ -118,7 +118,7 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
             </div>
             <div className="flex flex-wrap gap-3 p-2">
                 {Array.isArray(addedPhotos) && addedPhotos.length > 0 && addedPhotos.map((link, index) => (
-                    <div key={index} className="shrink-0 relative group h-[140px] w-[220px] rounded-2xl overflow-hidden shadow-md transition-shadow duration-300 hover:shadow-xl">
+                    <div key={index} className="shrink-0 relative group h-[140px] w-[220px] rounded-2xl overflow-hidden shadow-sm shadow-blue-300  transition-all duration-300 hover:shadow-blue-400">
                         <img src={'https://rentease-backend-5p7h.onrender.com/uploads/user-places/' + link} alt="Uploaded" className="w-full h-full object-cover rounded-2xl transform transition duration-300 group-hover:scale-105 group-hover:brightness-75" />
                         <div className="absolute flex gap-2 bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <button title={index === 0 ? 'Already Primary' : 'Make Primary'} className={`p-1 rounded-full items-center justify-center flex transition ${index === 0 ? 'bg-green-500 text-white' : 'bg-black bg-opacity-70 text-primary hover:bg-green-500 hover:text-white'}`} onClick={(e) => makePrimary(e, link)}><PrimaryIcon /></button>
