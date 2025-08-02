@@ -59,7 +59,7 @@ export const getAllPlaces = async (req, res) => {
 };
 
 
-const uploadByLink = async (req, res) => {
+export const uploadByLink = async (req, res) => {
   const { link } = req.body;
 
   try {
@@ -79,7 +79,7 @@ const uploadByLink = async (req, res) => {
 };
 
 
-const uploadPhotos = async (req, res) => {
+export const uploadPhotos = async (req, res) => {
   const uploadedFiles = [];
 
   try {
