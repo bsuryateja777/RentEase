@@ -20,30 +20,42 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
             return;
         }
 
-        const { data: filename } = await axios.post('/upload-by-link', { link: photoLink })
-        onChange(prev => {
-            return [...prev, filename]
-        })
-        setPhotoLink('');
+        try {
+            const res = await axios.post('/upload-to-cloudinary', { image: photoLink });
+            const { url } = res.data;
+
+            onChange(prev => [...prev, url]);
+            setPhotoLink('');
+        } catch (err) {
+            toast.error("Failed to upload from link.");
+        }
     }
 
-    function uploadPhoto(e) {
+
+    async function uploadPhoto(e) {
         const files = e.target.files;
-        const data = new FormData();
+        const updated = [];
+
+        if(!files) return;
 
         for (let i = 0; i < files.length; i++) {
-            data.append('photos', files[i]);
+            const data = new FormData();
+            data.append('file', files[i]);
+            data.append('upload_preset', 'RentEase-Preset'); // Only for unsigned uploads
+            data.append('cloud_name', 'dxvdbojpj');
+
+            const res = await fetch('https://api.cloudinary.com/v1_1/dxvdbojpj/image/upload', {
+                method: 'POST',
+                body: data,
+            });
+
+            const result = await res.json();
+            updated.push(result.secure_url);
         }
 
-        axios.post('/upload', data, {
-            headers: { 'Content-type': 'multipart/form-data' }
-        }).then(response => {
-            const { data: filenames } = response;
-            onChange(prev => {
-                return [...prev, ...filenames]
-            })
-        })
+        onChange(prev => [...prev, ...updated]);
     }
+
 
 
     function deletePic(e, filename) {
@@ -111,15 +123,15 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
 
     return (
         <div>
-            
+
             <div id="photos" className='flex gap-2'>
                 <input type="text" value={photoLink} onChange={e => setPhotoLink(e.target.value)} placeholder="Add using link .....jpg" />
                 <button onClick={addPhotoByLink} className='bg-primary text-white px-8 -my-0.5 rounded-2xl my-1 hover:bg-primaryHover'>Add&nbsp;Photo</button>
             </div>
             <div className="flex flex-wrap gap-3 p-2">
                 {Array.isArray(addedPhotos) && addedPhotos.length > 0 && addedPhotos.map((link, index) => (
-                    <div key={index} className="shrink-0 relative group h-[140px] w-[220px] rounded-2xl overflow-hidden shadow-md transition-shadow duration-300 hover:shadow-xl">
-                        <img src={'https://rentease-backend-5p7h.onrender.com/uploads/user-places/' + link} alt="Uploaded" className="w-full h-full object-cover rounded-2xl transform transition duration-300 group-hover:scale-105 group-hover:brightness-75" />
+                    <div key={index} className="shrink-0 relative group h-[140px] w-[220px] rounded-2xl overflow-hidden shadow-md shadow-blue-200 transition-all duration-300 hover:shadow-blue-300 ">
+                        <img src={link} alt="Uploaded" className="w-full h-full object-cover rounded-2xl transform transition duration-300 group-hover:scale-105 group-hover:brightness-75" />
                         <div className="absolute flex gap-2 bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <button title={index === 0 ? 'Already Primary' : 'Make Primary'} className={`p-1 rounded-full items-center justify-center flex transition ${index === 0 ? 'bg-green-500 text-white' : 'bg-black bg-opacity-70 text-primary hover:bg-green-500 hover:text-white'}`} onClick={(e) => makePrimary(e, link)}><PrimaryIcon /></button>
                             <button title="Delete" className="p-1 rounded-full bg-black bg-opacity-70 text-primary items-center justify-center flex" onClick={(e) => deletePic(e, link)}><DeleteIcon /></button>

@@ -1,6 +1,7 @@
 import AccomodatedPlaces from '../models/AccomodatedPlaces.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import cloudinary from '../config/cloudinary.js';
 import fs from 'fs';
 import imageDownloader from 'image-downloader';
 
@@ -63,44 +64,18 @@ export const getAllPlaces = async (req, res) => {
 };
 
 
-export const uploadByLink = async (req, res) => {
-  const { link } = req.body;
 
+export const uploadToCloudinary = async (req, res) => {
   try {
-    const filename = `photo_${Date.now()}.jpg`;
-    const userPlacesDir = path.join(__dirname, '..', 'uploads', 'user-places');
-    const uploadPath = path.join(userPlacesDir, filename);
-
-    // Make sure the folder exists
-    fs.mkdirSync(userPlacesDir, { recursive: true });
-
-    await imageDownloader.image({
-      url: link,
-      dest: uploadPath,
+    const { image } = req.body;
+    const result = await cloudinary.uploader.upload(image, {
+      folder: 'RentEase-Preset',
     });
 
-    res.json(filename);
-  } catch (err) {
-    console.error('Upload by link failed:', err.message);
-    res.status(500).json({ error: 'Failed to download image' });
+    res.json({ url: result.secure_url });
+  } catch (error) {
+    console.error('Cloudinary upload failed:', error);
+    res.status(500).json({ error: 'Upload failed' });
   }
 };
 
-
-export const uploadPhotos = async (req, res) => {
-  const uploadedFiles = [];
-
-  try {
-    for (let file of req.files) {
-      const ext = path.extname(file.originalname);
-      const newPath = file.path + ext;
-      fs.renameSync(file.path, newPath);
-      uploadedFiles.push(path.basename(newPath));
-    }
-
-    res.json(uploadedFiles);
-  } catch (err) {
-    console.error('Upload failed:', err);
-    res.status(500).json({ error: 'Failed to upload files' });
-  }
-};
