@@ -20,7 +20,7 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
             return;
         }
 
-        const { data: filename } = await axios.post('upload-by-link', { link: photoLink })
+        const { data: filename } = await axios.post('/upload-by-link', { link: photoLink })
         onChange(prev => {
             return [...prev, filename]
         })
