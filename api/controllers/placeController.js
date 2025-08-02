@@ -64,7 +64,11 @@ export const uploadByLink = async (req, res) => {
 
   try {
     const filename = `photo_${Date.now()}.jpg`;
-    const uploadPath = path.join(__dirname, '..', 'uploads', 'user-places', filename);
+    const userPlacesDir = path.join(__dirname, '..', 'uploads', 'user-places');
+    const uploadPath = path.join(userPlacesDir, filename);
+
+    // Make sure the folder exists
+    fs.mkdirSync(userPlacesDir, { recursive: true });
 
     await imageDownloader.image({
       url: link,
@@ -73,7 +77,7 @@ export const uploadByLink = async (req, res) => {
 
     res.json(filename);
   } catch (err) {
-    console.error('Upload by link failed:', err);
+    console.error('Upload by link failed:', err.message);
     res.status(500).json({ error: 'Failed to download image' });
   }
 };
