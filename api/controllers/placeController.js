@@ -1,7 +1,11 @@
 import AccomodatedPlaces from '../models/AccomodatedPlaces.js';
+import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs';
 import imageDownloader from 'image-downloader';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const createPlace = async (req, res) => {
   const place = await AccomodatedPlaces.create({
