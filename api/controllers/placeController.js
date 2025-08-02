@@ -1,4 +1,7 @@
 import AccomodatedPlaces from '../models/AccomodatedPlaces.js';
+import path from 'path';
+import fs from 'fs';
+import imageDownloader from 'image-downloader';
 
 export const createPlace = async (req, res) => {
   const place = await AccomodatedPlaces.create({
@@ -53,4 +56,43 @@ export const getAllPlaces = async (req, res) => {
 
   const places = await AccomodatedPlaces.find(query).populate('owner');
   res.json(places);
+};
+
+
+const uploadByLink = async (req, res) => {
+  const { link } = req.body;
+
+  try {
+    const filename = `photo_${Date.now()}.jpg`;
+    const uploadPath = path.join(__dirname, '..', 'uploads', 'user-places', filename);
+
+    await imageDownloader.image({
+      url: link,
+      dest: uploadPath,
+    });
+
+    res.json(filename);
+  } catch (err) {
+    console.error('Upload by link failed:', err);
+    res.status(500).json({ error: 'Failed to download image' });
+  }
+};
+
+
+const uploadPhotos = async (req, res) => {
+  const uploadedFiles = [];
+
+  try {
+    for (let file of req.files) {
+      const ext = path.extname(file.originalname);
+      const newPath = file.path + ext;
+      fs.renameSync(file.path, newPath);
+      uploadedFiles.push(path.basename(newPath));
+    }
+
+    res.json(uploadedFiles);
+  } catch (err) {
+    console.error('Upload failed:', err);
+    res.status(500).json({ error: 'Failed to upload files' });
+  }
 };
