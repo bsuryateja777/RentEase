@@ -1,13 +1,11 @@
 import { Router } from 'express';
 import { createPlace, updatePlace, getUserPlaces, getPlace, deletePlace, getAllPlaces } from '../controllers/placeController.js';
-import multer from 'multer';
-import path from 'path';
+import { upload } from '../middlewares/uploadMiddleware.js';
+
 
 import { verifyToken } from '../middlewares/authMiddleware.js';
 
-const upload = multer({
-  dest: path.join(__dirname, '..', 'uploads', 'user-places')
-});
+
 
 const router = Router();
 
