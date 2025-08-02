@@ -1,12 +1,6 @@
 import AccomodatedPlaces from '../models/AccomodatedPlaces.js';
-import { fileURLToPath } from 'url';
-import path from 'path';
 import cloudinary from '../config/cloudinary.js';
-import fs from 'fs';
-import imageDownloader from 'image-downloader';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export const createPlace = async (req, res) => {
   const place = await AccomodatedPlaces.create({
@@ -68,8 +62,9 @@ export const getAllPlaces = async (req, res) => {
 export const uploadToCloudinary = async (req, res) => {
   try {
     const { image } = req.body;
+
     const result = await cloudinary.uploader.upload(image, {
-      folder: 'RentEase-Preset',
+      upload_preset: 'RentEase-Preset', // 🔁 required for unsigned uploads
     });
 
     res.json({ url: result.secure_url });

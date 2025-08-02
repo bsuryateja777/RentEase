@@ -18,7 +18,7 @@ router.delete('/my-accomodations/:id', deletePlace);
 router.get('/places', getAllPlaces);
 router.get('/all-places/:id', getPlace);  // Optional: You may remove if duplicate of above
 
-router.post('/upload-to-cloudinary', uploadToCloudinary);
+router.post('/upload-to-cloudinary', verifyToken, uploadToCloudinary);
 
 
 export default router;
