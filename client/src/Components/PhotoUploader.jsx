@@ -22,12 +22,12 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
 
         try {
             const res = await axios.post('/upload-to-cloudinary', { image: photoLink });
-            const { url, secure_id } = res.data;
+            const { url, public_id } = res.data;
             
 
             onChange(prev => [...prev, url]);
             console.log("url: ", url);
-            console.log("secure_id: ", secure_id);
+            console.log("secure_id: ", public_id);
             setPhotoLink('');
         } catch (err) {
             toast.error("Failed to upload from link.");

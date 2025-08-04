@@ -24,15 +24,15 @@ export const uploadToCloudinaryByLink = async (req, res) => {
 
     // Step 1: Upload to Cloudinary
     const result = await cloudinary.uploader.upload(tempPath, {
-      folder: 'RentEase',
+      folder: 'RentEase-Preset',
       upload_preset: 'RentEase-Preset', // must be unsigned
       public_id: 'tempPath',
     });
 
     // Step 2: Cleanup and return result
     fs.unlinkSync(tempPath); // remove temp file
-    res.json({ url: result.secure_url, plublic_id : result.public_id });
-    res.send({ url: result.secure_url, plublic_id : result.public_id });
+    res.json({ url: result.secure_url, public_id : result.public_id });
+    res.send({ url: result.secure_url, public_id : result.public_id });
   } catch (error) {
     console.error('Cloudinary upload failed:', error.message);
     res.status(500).json({ error: 'Failed to upload image' });
