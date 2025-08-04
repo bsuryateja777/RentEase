@@ -18,34 +18,21 @@ export const uploadToCloudinaryByLink = async (req, res) => {
     if (!image.startsWith('http')) {
       return res.status(400).json({ error: 'Invalid image URL' });
     }
-
-    // Step 1: Download image temporarily
     const uniqueName = `temp_${uuid()}.jpg`;
     const tempPath = path.join(tmpdir(), uniqueName);
-    const writer = fs.createWriteStream(tempPath);
 
-    const response = await axios({
-      url: image,
-      method: 'GET',
-      responseType: 'stream',
-    });
 
-    response.data.pipe(writer);
-
-    await new Promise((resolve, reject) => {
-      writer.on('finish', resolve);
-      writer.on('error', reject);
-    });
-
-    // Step 2: Upload to Cloudinary
+    // Step 1: Upload to Cloudinary
     const result = await cloudinary.uploader.upload(tempPath, {
       folder: 'RentEase',
       upload_preset: 'RentEase-Preset', // must be unsigned
+      public_id: 'tempPath',
     });
 
-    // Step 3: Cleanup and return result
+    // Step 2: Cleanup and return result
     fs.unlinkSync(tempPath); // remove temp file
-    res.json({ url: result.secure_url });
+    res.json({ url: result.secure_url, plublic_id : result.public_id });
+    res.send({ url: result.secure_url, plublic_id : result.public_id });
   } catch (error) {
     console.error('Cloudinary upload failed:', error.message);
     res.status(500).json({ error: 'Failed to upload image' });
