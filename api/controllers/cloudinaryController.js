@@ -26,7 +26,6 @@ export const uploadToCloudinaryByLink = async (req, res) => {
     const result = await cloudinary.uploader.upload(tempPath, {
       folder: 'RentEase',
       upload_preset: 'RentEase', // must be unsigned
-      public_id: 'tempPath',
     });
 
     // Step 2: Cleanup and return result
