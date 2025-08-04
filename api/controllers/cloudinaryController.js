@@ -1,7 +1,7 @@
 // controllers/cloudinaryController.js
 import cloudinary from '../config/cloudinary.js';
 
-export const uploadToCloudinaryByLink = async (req, res) => {
+export const uploadToCloudinary = async (req, res) => {
   try {
     const { image } = req.body;
 
@@ -10,7 +10,7 @@ export const uploadToCloudinaryByLink = async (req, res) => {
     }
 
     const result = await cloudinary.uploader.upload(image, {
-      folder: 'RentEase',
+      folder: 'RentEase-Signed',
       resource_type: 'image',
     });
 
