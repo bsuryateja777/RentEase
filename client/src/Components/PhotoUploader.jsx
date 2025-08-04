@@ -44,7 +44,7 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
         for (let i = 0; i < files.length; i++) {
             const data = new FormData();
             data.append('file', files[i]);
-            data.append('upload_preset', 'RentEase-Preset'); // Only for unsigned uploads
+            data.append('upload_preset', 'RentEase'); // Only for unsigned uploads
             data.append('cloud_name', 'dxvdbojpj');
 
             const res = await fetch('https://api.cloudinary.com/v1_1/dxvdbojpj/image/upload', {

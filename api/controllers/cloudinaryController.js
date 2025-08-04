@@ -24,8 +24,8 @@ export const uploadToCloudinaryByLink = async (req, res) => {
 
     // Step 1: Upload to Cloudinary
     const result = await cloudinary.uploader.upload(tempPath, {
-      folder: 'RentEase-Preset',
-      upload_preset: 'RentEase-Preset', // must be unsigned
+      folder: 'RentEase',
+      upload_preset: 'RentEase', // must be unsigned
       public_id: 'tempPath',
     });
 
