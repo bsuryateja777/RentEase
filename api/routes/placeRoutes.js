@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createPlace, updatePlace, getUserPlaces, getPlace, deletePlace, getAllPlaces, uploadToCloudinary } from '../controllers/placeController.js';
+import { createPlace, updatePlace, getUserPlaces, getPlace, deletePlace, getAllPlaces } from '../controllers/placeController.js';
 import { multerMiddleware } from '../middlewares/placeMiddleware.js';
 
 
@@ -18,7 +18,6 @@ router.delete('/my-accomodations/:id', deletePlace);
 router.get('/places', getAllPlaces);
 router.get('/all-places/:id', getPlace);  // Optional: You may remove if duplicate of above
 
-router.post('/upload-to-cloudinary', verifyToken, uploadToCloudinary);
 
 
 export default router;

@@ -18,6 +18,8 @@ import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import placeRoutes from './routes/placeRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
+import cloudinaryRoutes from './routes/cloudinaryRoutes.js';
+
 
 const app = express();
 
@@ -32,6 +34,7 @@ app.use(authRoutes);
 app.use(userRoutes);
 app.use(placeRoutes);
 app.use(bookingRoutes);
+app.use(cloudinaryRoutes);
 
 
 export default app;
