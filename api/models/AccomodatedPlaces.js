@@ -9,6 +9,7 @@ const accomodatedPlacesSchema = new mongoose.Schema({
   title: String,
   address: String,
   photos: [String],
+  publicID: [String],
   description: String,
   perks: [String],
   extraInfo: String,

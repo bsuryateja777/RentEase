@@ -18,18 +18,21 @@ export const uploadToCloudinary = async (req, res) => {
     });
 
     res.json({ url: result.secure_url, public_id: result.public_id });
-    console.log('url: ', result.secure_url)
-    console.log('public_id: ', result.public_id)
   } catch (error) {
-    console.error('Cloudinary direct URL upload failed:', {
-      message: error.message,
-      name: error.name,
-      http_code: error.http_code,
-      stack: error.stack,
-      ...error
-    });
-    console.log('Cloudinary direct URL upload failed:', error);
-    process.stdout.write('\n--- Upload error ---\n' + JSON.stringify(error, null, 2) + '\n--------------------\n');
+    console.log('Cloudinary direct URL upload failed:', error.message);
     res.status(500).json({ error: 'Failed to upload image from URL' });
   }
 };
+
+
+export const deleteFromCloudinary = async (req, res) => {
+  const { public_id } = req.body;
+  try {
+    await cloudinary.uploader.destroy(public_id);
+    res.json({ message: 'Deleted successfully' });
+  } catch (err) {
+    console.error("Delete from Cloudinary failed:", err);
+    res.status(500).json({ error: 'Failed to delete image' });
+  }
+};
+
