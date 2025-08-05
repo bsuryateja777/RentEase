@@ -13,7 +13,8 @@ export default function AccomodationFormPage({ action }) {
     const [title, setTitle] = useState('')
     const [address, setAddress] = useState('')
     const [description, setDescription] = useState('')
-    const [addedPhotos, setAddedPhotos] = useState([])
+    const [photos, setPhotos] = useState([])
+    const [publicID, setPublicID] = useState([])
     const [perks, setPerks] = useState([]);
     const [extraInfo, setExtraInfo] = useState('')
     const [pricep1N, setPricep1N] = useState(100);
@@ -34,7 +35,8 @@ export default function AccomodationFormPage({ action }) {
                 const { data } = res;
                 setTitle(data.title)
                 setAddress(data.address)
-                setAddedPhotos(data.photos)
+                setPhotos(data.photos)
+                setPublicID(data.publicID)
                 setDescription(data.description)
                 setPerks(data.perks)
                 setExtraInfo(data.extraInfo)
@@ -72,7 +74,7 @@ export default function AccomodationFormPage({ action }) {
     async function savePlace(e) {
         e.preventDefault();
 
-        const placeData = { title, address, addedPhotos, description, perks, extraInfo, pricep1N, pricep2N };
+        const placeData = { title, address, photos, publicID, description, perks, extraInfo, pricep1N, pricep2N };
 
         if (id) {
             //update
@@ -108,7 +110,7 @@ export default function AccomodationFormPage({ action }) {
 
     }
 
-    const isFormEmpty = !title && !description && !address && perks.length === 0 && addedPhotos.length === 0 && !extraInfo;
+    const isFormEmpty = !title && !description && !address && perks.length === 0 && photos.length === 0 && !extraInfo;
 
 
 
@@ -153,7 +155,7 @@ export default function AccomodationFormPage({ action }) {
                     <input id="address" type="text" value={address} onChange={e => setAddress(e.target.value)} placeholder='address' />
 
                     {preInput('Photos', 'more = better')}
-                    <PhotoUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
+                    <PhotoUploader photos={photos}  setPhotos={setPhotos} publicID={publicID}  setPublicID={setPublicID} />
 
                     {preInput('Description', 'description of the place')}
                     <textarea value={description} onChange={e => setDescription(e.target.value)} className='block mt-2' />

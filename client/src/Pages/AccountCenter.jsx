@@ -11,7 +11,6 @@ export default function AccountCenter() {
 
   const [showPersDiv, setShowPersDiv] = useState(false)
   const [showPassDiv, setShowPassDiv] = useState(false)
-  const [redirect, setredirect] = useState('')
 
 
   async function logout() {
@@ -20,8 +19,8 @@ export default function AccountCenter() {
     } catch (err) {
       console.error("Logout failed", err);
     } finally {
-      setUser(null);  // Clear context
-      navigate('/home');  // Redirect
+      setUser(null);
+      navigate('/home');
     }
   }
 

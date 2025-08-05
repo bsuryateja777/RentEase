@@ -53,7 +53,7 @@ export default function Header() {
             <div className="flex-1">
                 <Link to="/home" className="inline-flex items-center gap-2 cursor-pointer group">
                     <div className="flex items-center gap-2 px-2 py-1 group-hover:opacity-90 transition">
-                        <RentEaseLogo size="h-10 w-10" />
+                        <RentEaseLogo size="h-10 w-10 relative bottom-0.5" />
                         <h1 className="text-3xl text-gray-800 group-hover:text-black">RentEase</h1>
                     </div>
                 </Link>

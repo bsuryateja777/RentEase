@@ -4,7 +4,7 @@ import axios from 'axios';
 import { UserContext } from "../userContext";
 import { Link } from 'react-router-dom';
 import ConfirmDialog from '../Components/ConfirmDialog';
-import { CalenderIcon, DeleteIcon, MoreOptions, RightArrows } from '../Components/Icons';
+import { CalenderIcon, DeleteIcon, MoreOptions, RightArrow } from '../Components/Icons';
 
 export default function MyBookingsPage() {
   const [userBookings, setUserBookings] = useState([]);
@@ -82,7 +82,7 @@ export default function MyBookingsPage() {
                   {booking.place.photos.length > 0 && (
                     <img
                       className='object-cover h-full w-full rounded-lg'
-                      src={'https://rentease-backend-5p7h.onrender.com/uploads/user-places/' + booking.place.photos[0]}
+                      src={booking.place.photos[0]}
                       alt="Place"
                     />
                   )}
@@ -93,7 +93,7 @@ export default function MyBookingsPage() {
                   <p className="text-gray-500 mb-4">{booking.place.address}</p>
                   <div className='flex gap-3'>
                     <p className='flex flex-row gap-1'> {new Date(booking.fromDate).toLocaleDateString()}  <CalenderIcon /> </p>
-                    <RightArrows />
+                    <RightArrow />
                     <p className='flex flex-row gap-1'> {new Date(booking.toDate).toLocaleDateString()}    <CalenderIcon /> </p>
                   </div>
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FourSquare } from './Icons';
 
 export default function ImageGrid({ images = [] }) {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function ImageGrid({ images = [] }) {
             {/* Featured Image */}
             <div className="col-span-3 row-span-2 relative overflow-hidden rounded-xl">
                 <div className="w-full h-full overflow-hidden rounded-xl">
-                    <img src={`https://rentease-backend-5p7h.onrender.com/uploads/user-places/${featuredImage}`} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 hover:brightness-50" />
+                    <img src={featuredImage} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 hover:brightness-50" />
                 </div>
             </div>
 
@@ -24,17 +25,14 @@ export default function ImageGrid({ images = [] }) {
                 {sideImages.map((img, idx) => (
                     <div key={idx} className={`relative ${makeFlex ? 'w-[49%] h-[49.5%]' : 'w-full h-full'}`}>
                         <div className="w-full h-full overflow-hidden rounded-xl">
-                            <img src={`https://rentease-backend-5p7h.onrender.com/uploads/user-places/${img}`} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 hover:brightness-50" />
+                            <img src={img} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 hover:brightness-50" />
                         </div>
 
                         {/* Show all photos button */}
                         {!makeFlex && idx === 3 && images.length > 5 && (
-                            <div onClick={() => setMakeFlex(true)} className="flex items-center gap-2 absolute bottom-2 right-2 bg-white text-black text-sm px-3 py-1 rounded-xl shadow-md cursor-pointer hover:bg-gray-300 transition" >
+                            <div onClick={() => setMakeFlex(true)} className="flex items-center gap-1 absolute bottom-2 right-2 bg-white text-black text-sm px-3 py-1 rounded-xl shadow-md cursor-pointer hover:bg-gray-300 transition" >
+                                <FourSquare size="size-5 relative " />
                                 Show all photos
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                                </svg>
                             </div>
                         )}
                     </div>

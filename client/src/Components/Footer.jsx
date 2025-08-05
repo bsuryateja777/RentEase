@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-300 text-gray-900 py-3 px-6 rounded-b-2xl">
       <Link to={"/home"} className="flex items-end gap-1 px-2">
-        <RentEaseLogo size="h-9 w-8" />
+        <RentEaseLogo size="h-7 w-7 relative bottom-0.5" />
         <h1 className="text-xl text-gray-600 hover:text-gray-800">RentEase</h1>
       </Link>
   

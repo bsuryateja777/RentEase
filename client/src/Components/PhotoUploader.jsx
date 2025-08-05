@@ -1,16 +1,11 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { DeleteIcon, PrimaryIcon } from '../Components/Icons.jsx';
 import { toast } from 'react-toastify';
 import '../index.css';
 
-
-
-
-export default function PhotoUploader({ addedPhotos, onChange }) {
-
-    const [photoLink, setPhotoLink] = useState('')
+export default function PhotoUploader({ photos, setPhotos, publicID, setPublicID }) {
+    const [photoLink, setPhotoLink] = useState('');
 
     async function addPhotoByLink(e) {
         e.preventDefault();
@@ -23,28 +18,23 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
         try {
             const res = await axios.post('/upload-to-cloudinary', { image: photoLink });
             const { url, public_id } = res.data;
-            
 
-            onChange(prev => [...prev, url]);
-            console.log("url: ", url);
-            console.log("secure_id: ", public_id);
+            setPhotos(prev => [...prev, url]);
+            setPublicID(prev => [...prev, public_id]);
             setPhotoLink('');
         } catch (err) {
             toast.error("Failed to upload from link.");
         }
     }
 
-
     async function uploadPhoto(e) {
         const files = e.target.files;
-        const updated = [];
-
-        if(!files) return;
+        if (!files) return;
 
         for (let i = 0; i < files.length; i++) {
             const data = new FormData();
             data.append('file', files[i]);
-            data.append('upload_preset', 'RentEase-Unsigned'); // Only for unsigned uploads
+            data.append('upload_preset', 'RentEase-Unsigned'); // unsigned preset
             data.append('cloud_name', 'dxvdbojpj');
 
             const res = await fetch('https://api.cloudinary.com/v1_1/dxvdbojpj/image/upload', {
@@ -53,34 +43,39 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
             });
 
             const result = await res.json();
-            updated.push(result.secure_url);
+            setPhotos(prev => [...prev, result.secure_url]);
+            setPublicID(prev => [...prev, result.public_id]);
         }
-
-        onChange(prev => [...prev, ...updated]);
     }
 
-
-
-    function deletePic(e, filename) {
+    async function deletePic(e, urlToDelete) {
         e.preventDefault();
+        const index = photos.indexOf(urlToDelete);
+        if (index === -1) return;
 
-        const updatedPhotos = addedPhotos.filter(photo => photo !== filename);
+        const updatedPhotos = [...photos];
+        const updatedPublicIds = [...publicID];
+        const deletedUrl = updatedPhotos.splice(index, 1)[0];
+        const deletedPublicId = updatedPublicIds.splice(index, 1)[0];
 
-        const originalPhotos = [...addedPhotos];
+        setPhotos(updatedPhotos);
+        setPublicID(updatedPublicIds);
 
-        // Update state
-        onChange(updatedPhotos);
+        try {
+            await axios.post('/delete-from-cloudinary', { public_id: deletedPublicId });
+        } catch (err) {
+            console.error("Cloudinary delete error:", err);
+        }
 
-        // Show undo option
         toast.info(
             <span>
                 Photo deleted.
                 <button
                     className="undo-button"
-                    type="button"
                     onClick={() => {
                         toast.dismiss("delete-toast");
-                        onChange(originalPhotos);
+                        setPhotos(prev => [...prev.slice(0, index), deletedUrl, ...prev.slice(index)]);
+                        setPublicID(prev => [...prev.slice(0, index), deletedPublicId, ...prev.slice(index)]);
                     }}
                 >
                     Undo
@@ -94,50 +89,53 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
         );
     }
 
-
-
     function makePrimary(e, filename) {
         e.preventDefault();
+        const index = photos.indexOf(filename);
+        if (index === -1 || index === 0) return;
 
-        let changed = false;
+        const reorderedPhotos = [photos[index], ...photos.filter((_, i) => i !== index)];
+        const reorderedPublicIDs = [publicID[index], ...publicID.filter((_, i) => i !== index)];
 
-        onChange(prev => {
-            if (prev[0] === filename) {
-                return prev;
-            } else {
-                changed = true;
-                return [filename, ...prev.filter(p => p !== filename)];
-            }
-        });
+        setPhotos(reorderedPhotos);
+        setPublicID(reorderedPublicIDs);
 
-        setTimeout(() => {
-            if (changed) {
-                toast.dismiss()
-                toast.dark("Primary image changed");
-            } else {
-                toast.dismiss()
-                toast.info("The image is already primary");
-            }
-        }, 0);
+        toast.dismiss();
+        toast.dark("Primary image changed");
     }
-
-
-
 
     return (
         <div>
-
             <div id="photos" className='flex gap-2'>
-                <input type="text" value={photoLink} onChange={e => setPhotoLink(e.target.value)} placeholder="Add using link .....jpg" />
-                <button onClick={addPhotoByLink} className='bg-primary text-white px-8 -my-0.5 rounded-2xl my-1 hover:bg-primaryHover'>Add&nbsp;Photo</button>
+                <input
+                    type="text"
+                    value={photoLink}
+                    onChange={e => setPhotoLink(e.target.value)}
+                    placeholder="Add using link .....jpg"
+                />
+                <button onClick={addPhotoByLink} className='bg-primary text-white px-8 -my-0.5 rounded-2xl my-1 hover:bg-primaryHover'>
+                    Add&nbsp;Photo
+                </button>
             </div>
             <div className="flex flex-wrap gap-3 p-2">
-                {Array.isArray(addedPhotos) && addedPhotos.length > 0 && addedPhotos.map((link, index) => (
-                    <div key={index} className="shrink-0 relative group h-[140px] w-[220px] rounded-2xl overflow-hidden shadow-md shadow-blue-200 transition-all duration-300 hover:shadow-blue-300 ">
+                {photos.map((link, index) => (
+                    <div key={index} className="shrink-0 relative group h-[140px] w-[220px] rounded-2xl overflow-hidden shadow-md shadow-blue-200 transition-all duration-300 hover:shadow-blue-300">
                         <img src={link} alt="Uploaded" className="w-full h-full object-cover rounded-2xl transform transition duration-300 group-hover:scale-105 group-hover:brightness-75" />
                         <div className="absolute flex gap-2 bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <button title={index === 0 ? 'Already Primary' : 'Make Primary'} className={`p-1 rounded-full items-center justify-center flex transition ${index === 0 ? 'bg-green-500 text-white' : 'bg-black bg-opacity-70 text-primary hover:bg-green-500 hover:text-white'}`} onClick={(e) => makePrimary(e, link)}><PrimaryIcon /></button>
-                            <button title="Delete" className="p-1 rounded-full bg-black bg-opacity-70 text-primary items-center justify-center flex" onClick={(e) => deletePic(e, link)}><DeleteIcon /></button>
+                            <button
+                                title={index === 0 ? 'Already Primary' : 'Make Primary'}
+                                className={`p-1 rounded-full items-center justify-center flex transition ${index === 0 ? 'bg-green-500 text-white' : 'bg-black bg-opacity-70 text-primary hover:bg-green-500 hover:text-white'}`}
+                                onClick={(e) => makePrimary(e, link)}
+                            >
+                                <PrimaryIcon />
+                            </button>
+                            <button
+                                title="Delete"
+                                className="p-1 rounded-full bg-black bg-opacity-70 text-primary items-center justify-center flex"
+                                onClick={(e) => deletePic(e, link)}
+                            >
+                                <DeleteIcon />
+                            </button>
                         </div>
                     </div>
                 ))}
@@ -148,9 +146,7 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
                     </svg>
                     <p className="text-sm text-gray-700 mt-1">Upload</p>
                 </label>
-
-
             </div>
         </div>
-    )
+    );
 }

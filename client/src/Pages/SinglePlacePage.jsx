@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ImageGrid from '../Components/ImageGrid';
-import Footer from '../Components/Footer.jsx';
 import { WifiIcon, ParkingIcon, TVIcon, MusicSystemIcon, PetsIcon, PrivateEntranceIcon, LocationIcon } from '../Components/Icons.jsx';
 import { UserContext } from '../userContext.jsx';
 import { toast } from 'react-toastify';

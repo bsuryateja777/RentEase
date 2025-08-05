@@ -63,11 +63,8 @@ export default function IndexPage() {
                     </div>
                   )}
                   {place.photos?.[0] && (
-                    <img
-                      className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105 group-hover:brightness-75'
-                      src={`https://rentease-backend-5p7h.onrender.com/uploads/user-places/${place.photos?.[0]}`}
-                      alt={place.title}
-                    />
+                    <img className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105 group-hover:brightness-75'
+                      src={place.photos?.[0]} alt={place.title} />
                   )}
                 </div>
                 <h2 className='text-md font-serif mx-1 truncate leading-4'>
