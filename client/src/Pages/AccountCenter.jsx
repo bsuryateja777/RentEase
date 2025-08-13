@@ -24,7 +24,7 @@ export default function AccountCenter() {
     }
   }
 
-  function creditsClick() {
+  function creditClick() {
     navigate('https://portfolio-g8xb.onrender.com/');
   }
 
