@@ -47,7 +47,8 @@ export default function AccountCenter() {
 
           <button><Link to={'/account/my-accomodations/new'}>Accomodate a Place</Link></button>
           
-          <a href="https://portfolio-g8xb.onrender.com/#about"><button> Credits</button></a>
+          <button><a href="https://portfolio-g8xb.onrender.com/#about" target="_blank" rel="noopener noreferrer"> Credits</a></button>
+
           <button>Help</button>
 
         </div>
