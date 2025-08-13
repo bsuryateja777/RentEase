@@ -24,9 +24,6 @@ export default function AccountCenter() {
     }
   }
 
-  function creditClick() {
-    navigate('https://portfolio-g8xb.onrender.com/');
-  }
 
 
   if (!user) return <div>Not logged in</div>;
@@ -49,7 +46,8 @@ export default function AccountCenter() {
           )}
 
           <button><Link to={'/account/my-accomodations/new'}>Accomodate a Place</Link></button>
-          <button onClick={creditClick}> Credits</button>
+          
+          <a href="https://portfolio-g8xb.onrender.com/#about"><button> Credits</button></a>
           <button>Help</button>
 
         </div>

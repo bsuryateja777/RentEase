@@ -28,6 +28,8 @@ button {
   @apply hover:bg-gray-300 mt-2 flex justify-center items-center py-1;
 }
 
+
+
 button.primary {
   @apply bg-primary hover:bg-primaryHover p-2 w-full text-white rounded-2xl;
 }
