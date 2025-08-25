@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Cities({ city, setCity }) {
-    const cities = ["All Cities", "Mumbai", "Hyderabad", "Ahmadabad", "Bangalore", "Kolkata", "Delhi", "Goa"];
+    const cities = ["All Cities", "Mumbai", "Hyderabad", "Ahmedabad", "Bangalore", "Kolkata", "Delhi", "Goa"];
     const navigate = useNavigate();
     const location = useLocation();
 
