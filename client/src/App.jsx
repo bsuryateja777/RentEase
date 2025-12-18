@@ -16,7 +16,7 @@ import MyGuestsPage from './Pages/MyGuestsPage.jsx';
 import SinglePlacePage from './Pages/SinglePlacePage.jsx'
 
 
-axios.defaults.baseURL = 'https://rentease-backend-5p7h.onrender.com';
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 // axios.defaults.baseURL = 'http://localhost:4000';
 axios.defaults.withCredentials = true;
 
