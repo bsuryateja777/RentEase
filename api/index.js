@@ -9,7 +9,9 @@ const port = process.env.PORT || 4000;
 
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
-    app.listen( port, () => console.log('Server running on render'));
+    app.listen(port, "0.0.0.0", () => {
+      console.log("Server running");
+    });
   })
   .catch(err => {
     console.error('MongoDB connection error:', err.message);
