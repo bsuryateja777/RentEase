@@ -29,7 +29,7 @@ app.use(cors({
   origin: [
     "http://localhost:4000",
     "https://rentease-frontend.onrender.com",
-    /\.amplifyapp\.com$/
+    "https://amplifytf.d3un37pe37fa2e.amplifyapp.com"
   ],
   credentials: true
 }));
