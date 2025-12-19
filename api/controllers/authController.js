@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 const jwtSecret =process.env.JWT_SECRET || 'default_secret';
 
-export const healthcheck = (req, res) => {
+export const healthCheck = (req, res) => {
   res.status(200).json({ status: 'ok'})
 }
 
