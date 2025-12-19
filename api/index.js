@@ -10,7 +10,7 @@ const port = process.env.PORT || 4000;
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     app.listen(port, "0.0.0.0", () => {
-      console.log("Server running");
+      console.log("Server running on ec2 on branch ec2tf");
     });
   })
   .catch(err => {
