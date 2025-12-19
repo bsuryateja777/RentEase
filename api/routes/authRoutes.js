@@ -1,10 +1,9 @@
 import { Router } from 'express';
-import { healthCheck, register, login, logout, profile} from '../controllers/authController.js';
+import { register, login, logout, profile} from '../controllers/authController.js';
 import { verifyToken } from '../middlewares/authMiddleware.js';
 
 const router = Router();
 
-router.get('/health', healthCheck);
 router.post('/register', register);
 router.post('/login', login);
 router.post('/logout', logout);
