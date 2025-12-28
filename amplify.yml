@@ -5,17 +5,12 @@ frontend:
       commands:
         - nvm install 20
         - nvm use 20
-        - pwd
-        - ls
         - cd client
         - rm -rf node_modules package-lock.json
         - npm install
 
     build:
       commands:
-        - pwd
-        - ls
-        - cd client
         - npm run build
 
   artifacts:
