@@ -8,9 +8,7 @@ frontend:
         - node -v
         - npm -v
         - cd client
-        - rm -rf node_modules
-        - npm install --include=dev
-        - npm install -D vite
+        - rm -rf node_modules package-lock.json
         - npx vite --version
     build:
       commands:
