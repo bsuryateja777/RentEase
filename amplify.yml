@@ -11,7 +11,7 @@ frontend:
         # Clean previous dependencies
         - rm -rf node_modules
         # Install all dependencies including devDependencies
-        - npm ci --include=dev
+        - npm install --include=dev --no-optional=false
     build:
       commands:
         # Build the project using local Vite
