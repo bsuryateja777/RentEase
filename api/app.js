@@ -27,9 +27,9 @@ const app = express();
 // app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(cors({
   origin: [
+    "http://rentease-app.ddns.net",
     "http://localhost:5173",
     "https://rentease-frontend.onrender.com",
-    "https://amplifytf.d3un37pe37fa2e.amplifyapp.com"
   ],
   credentials: true
 }));
