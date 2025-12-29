@@ -10,6 +10,8 @@ frontend:
         - cd client
         - rm -rf node_modules
         - npm install
+        - npm install -D vite
+        - npx vite --version
     build:
       commands:
         - npm run build
