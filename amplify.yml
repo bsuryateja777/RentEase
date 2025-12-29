@@ -9,10 +9,10 @@ frontend:
         - npm -v
         - cd client
         - rm -rf node_modules package-lock.json
-        - npm install
+        - npm ci
     build:
       commands:
-        - npx vite build
+        - npm run build
   artifacts:
     baseDirectory: client/dist
     files:
