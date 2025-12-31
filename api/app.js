@@ -27,6 +27,7 @@ const app = express();
 // app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(cors({
   origin: [
+    "https://rentease-app.ddns.net",
     "http://rentease-app.ddns.net",
     "http://localhost:5173",
     "https://rentease-frontend.onrender.com",
@@ -34,7 +35,7 @@ app.use(cors({
   credentials: true
 }));
 
-app.get("/health", (req, res) => {
+app.get("/api/health", (req, res) => {
   res.status(200).send("OK");
 });
 
@@ -44,11 +45,11 @@ app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
-app.use(authRoutes);
-app.use(userRoutes);
-app.use(placeRoutes);
-app.use(bookingRoutes);
-app.use(cloudinaryRoutes);
+app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+app.use("/api", placeRoutes);
+app.use("/api", bookingRoutes);
+app.use("/api", cloudinaryRoutes);
 
 
 export default app;
