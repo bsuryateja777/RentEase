@@ -59,13 +59,15 @@ export default function Header() {
                         <input type="search" placeholder="Search by place...." className="no-clear placeholder:text-gray-300 cursor-pointer bg-transparent
                         text-white placeholder-white w-full outline-none text-lg" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSearch()} autoFocus={isFullSearch} />
-                        <button
-                            type="button"
+                        <div
+                            role="button"
+                            tabIndex={0}
                             onClick={() => { setIsFullSearch(false); setSearchQuery(''); }}
-                            className="text-white cursor-pointer ml-2 mr-1 hover:text-gray-500 bg-transparent border-0 p-0"
+                            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (setIsFullSearch(false), setSearchQuery(''))}
+                            className="text-white cursor-pointer ml-2 mr-1 hover:text-gray-500"
                         >
                             <CrossIcon size="h-6 w-6" />
-                        </button>
+                        </div>
                     </div>
 
                     {/* STATIC SEARCH UI */}
@@ -78,13 +80,15 @@ export default function Header() {
 
                         <div className="flex items-center hover:bg-gray-300 px-3.5 rounded-r-full py-0.5 pr-0.5 mr-0">
                             <div className="pr-1">Any guests</div>
-                            <button
-                                type="button"
+                            <div
+                                role="button"
+                                tabIndex={0}
                                 onClick={() => setIsFullSearch(true)}
-                                className="text-white bg-primary p-1 rounded-full border-0 cursor-pointer"
+                                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setIsFullSearch(true)}
+                                className="text-white bg-primary p-1 rounded-full cursor-pointer"
                             >
                                 <SearchIcon size="h-6 w-6" />
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>
